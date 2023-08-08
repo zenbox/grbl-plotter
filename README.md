@@ -1,4 +1,10 @@
 # Grbl-plotter
+
+_v0.0.0_
+
+Trying to build a web interface driven, arduino-based x-y-plotter.
+
+I have a setup with two syncron y-axis and one x-axis linear guides, driven by NEMA 17 stepper motors and a CNC motorshield on Arduino Uno.
  
 ## Typescript
 
