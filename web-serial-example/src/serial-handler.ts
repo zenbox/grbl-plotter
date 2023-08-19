@@ -14,21 +14,23 @@ class SerialHandler {
    * After opening the port, a `writer` and a `reader` are set; they will be used by the `write` and `read` methods respectively.
    */
   async init() {
-    if ('serial' in navigator) {
+    if ("serial" in navigator) {
       try {
         const port = await (navigator as any).serial.requestPort();
-        await port.open({ baudRate: 9600 }); // `baudRate` was `baudrate` in previous versions.
+        await port.open({ baudRate: 115200 }); // `baudRate` was `baudrate` in previous versions.
 
         this.writer = port.writable.getWriter();
         this.reader = port.readable.getReader();
-        
+
         const signals = await port.getSignals();
         console.log(signals);
-      } catch(err) {
-        console.error('There was an error opening the serial port:', err);
+      } catch (err) {
+        console.error("There was an error opening the serial port:", err);
       }
     } else {
-      console.error('Web serial doesn\'t seem to be enabled in your browser. Check https://developer.mozilla.org/en-US/docs/Web/API/Web_Serial_API#browser_compatibility for more info.')
+      console.error(
+        "Web serial doesn't seem to be enabled in your browser. Check https://developer.mozilla.org/en-US/docs/Web/API/Web_Serial_API#browser_compatibility for more info."
+      );
     }
   }
 
@@ -57,6 +59,5 @@ class SerialHandler {
     }
   }
 }
-
 
 export const serialHandler = new SerialHandler();

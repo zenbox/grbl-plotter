@@ -1,5 +1,4 @@
-import { serialHandler } from './serial-handler.js';
-
+´ß04 
 /**
  * UI specific code
  * This code is only meant to handle the elements and interactions in this example.
@@ -8,34 +7,45 @@ import { serialHandler } from './serial-handler.js';
  */
 
 class WebSerialDemoApp {
-  connectButtonElem = <HTMLButtonElement>document.getElementById('connect-to-serial')!;
-  messageButtons = document.querySelectorAll<HTMLButtonElement>('.message-button')!;
-  messageInput = <HTMLInputElement>document.getElementById('message-input')!;
-  submitButton = <HTMLElement>document.getElementById('submit-button')!;
-  serialMessagesContainer = <HTMLOListElement>document.getElementById('serial-messages-container')!;
+  connectButtonElem = <HTMLButtonElement>(
+    document.getElementById("connect-to-serial")!
+  );
+  messageButtons =
+    document.querySelectorAll<HTMLButtonElement>(".message-button")!;
+  messageInput = <HTMLInputElement>document.getElementById("message-input")!;
+  submitButton = <HTMLElement>document.getElementById("submit-button")!;
+  serialMessagesContainer = <HTMLOListElement>(
+    document.getElementById("serial-messages-container")!
+  );
 
   constructor() {
-    this.connectButtonElem.addEventListener('pointerdown', async () => {
+    this.connectButtonElem.addEventListener("pointerdown", async () => {
       await serialHandler.init();
 
       this.messageButtons.forEach((button: HTMLButtonElement) => {
-          button.removeAttribute('disabled');
+        button.removeAttribute("disabled");
       });
-    })
+    });
 
     this.messageButtons.forEach((button: HTMLButtonElement) => {
-      button.addEventListener('pointerdown', () => {
+      button.addEventListener("pointerdown", () => {
+        console.log(button.dataset.value);
         serialHandler.write(String(button.dataset.value));
         this.getSerialMessage();
-      })
-    })
+      });
+    });
   }
-  
+
   async getSerialMessage() {
     const now = new Date();
-    const listElement = document.createElement('li');
+    const listElement = document.createElement("li");
 
-    listElement.innerText = `Message received at ${String(now.getHours()).padStart(2, '0')}:${String(now.getMinutes()).padStart(2, '0')}.${now.getMilliseconds()}: ${await serialHandler.read()}`;
+    listElement.innerText = `Message received at ${String(
+      now.getHours()
+    ).padStart(2, "0")}:${String(now.getMinutes()).padStart(
+      2,
+      "0"
+    )}.${now.getMilliseconds()}: ${await serialHandler.read()}`;
     this.serialMessagesContainer.appendChild(listElement);
   }
 }

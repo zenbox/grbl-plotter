@@ -16,7 +16,7 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
     function verb(n) { return function (v) { return step([n, v]); }; }
     function step(op) {
         if (f) throw new TypeError("Generator is already executing.");
-        while (_) try {
+        while (g && (g = 0, op[0] && (_ = 0)), _) try {
             if (f = 1, y && (t = op[0] & 2 ? y["return"] : op[0] ? y["throw"] || ((t = y["return"]) && t.call(y), 0) : y.next) && !(t = t.call(y, op[1])).done) return t;
             if (y = 0, t) op = [op[0] & 2, t.value];
             switch (op[0]) {
@@ -53,14 +53,14 @@ var SerialHandler = /** @class */ (function () {
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0:
-                        if (!('serial' in navigator)) return [3 /*break*/, 7];
+                        if (!("serial" in navigator)) return [3 /*break*/, 7];
                         _a.label = 1;
                     case 1:
                         _a.trys.push([1, 5, , 6]);
                         return [4 /*yield*/, navigator.serial.requestPort()];
                     case 2:
                         port = _a.sent();
-                        return [4 /*yield*/, port.open({ baudRate: 9600 })];
+                        return [4 /*yield*/, port.open({ baudRate: 115200 })];
                     case 3:
                         _a.sent(); // `baudRate` was `baudrate` in previous versions.
                         this.writer = port.writable.getWriter();
@@ -72,11 +72,11 @@ var SerialHandler = /** @class */ (function () {
                         return [3 /*break*/, 6];
                     case 5:
                         err_1 = _a.sent();
-                        console.error('There was an error opening the serial port:', err_1);
+                        console.error("There was an error opening the serial port:", err_1);
                         return [3 /*break*/, 6];
                     case 6: return [3 /*break*/, 8];
                     case 7:
-                        console.error('Web serial doesn\'t seem to be enabled in your browser. Check https://developer.mozilla.org/en-US/docs/Web/API/Web_Serial_API#browser_compatibility for more info.');
+                        console.error("Web serial doesn't seem to be enabled in your browser. Check https://developer.mozilla.org/en-US/docs/Web/API/Web_Serial_API#browser_compatibility for more info.");
                         _a.label = 8;
                     case 8: return [2 /*return*/];
                 }
@@ -118,7 +118,7 @@ var SerialHandler = /** @class */ (function () {
                         return [2 /*return*/, this.decoder.decode(readerData.value)];
                     case 2:
                         err_2 = _a.sent();
-                        errorMessage = "error reading data: " + err_2;
+                        errorMessage = "error reading data: ".concat(err_2);
                         console.error(errorMessage);
                         return [2 /*return*/, errorMessage];
                     case 3: return [2 /*return*/];
