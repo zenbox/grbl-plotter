@@ -1,4 +1,3 @@
-´ß04 
 /**
  * UI specific code
  * This code is only meant to handle the elements and interactions in this example.

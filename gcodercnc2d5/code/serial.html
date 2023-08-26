@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Web Serial Example</title>
+  </head>
+  <body>
+    <h1>Web Serial Example</h1>
+    <p>Lorem ipsum dolor sit.</p>
+    
+    <button id="startButton">Start</button>
+    <script>
+async function initSerial() {
+  try {
+    const port = await navigator.serial.requestPort();
+    await port.open({ baudRate: 9600 });
+    
+    // You can now read and write data using the `port` object
+    // For example, reading data:
+    const reader = port.readable.getReader();
+    while (true) {
+      const { value, done } = await reader.read();
+      if (done) break;
+      console.log(`Received: ${value}`);
+    }
+    
+    // Writing data:
+    const writer = port.writable.getWriter();
+    await writer.write("Hello, serial device!");
+    writer.releaseLock();
+    
+    // Don't forget to close the port when done
+    await port.close();
+  } catch (error) {
+    console.error("Error:", error);
+  }
+}
+
+// Trigger serial initialization on a button click or other user gesture
+document.querySelector("#startButton").addEventListener("click", initSerial);
+    </script>
+  </body>
+</html>

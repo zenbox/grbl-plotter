@@ -1,7 +1,4 @@
 "use strict";
-
-import { serialHandler } from "/web-serial-example/dist/serial-handler.js";
-
 //****************************************************************
 //
 // Page, UI and app functions
@@ -390,6 +387,7 @@ function downloadcncfile(adist) {
   saveAs(file);
 }
 
+
 /**
  * @desc   New send function (instead of saving as file)
  * @since  2023-08-13
@@ -402,7 +400,7 @@ function sendcncfile(adist) {
   var file = new File([gcode], fname, { type: "text/plain;charset=utf-8" });
 
   console.log(gcode);
-  serialHandler.write(String(gode));
+  serial.write(String(gode));
 }
 
 function getdefaults() {
